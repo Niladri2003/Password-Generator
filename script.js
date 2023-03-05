@@ -2,7 +2,7 @@ const inputslider=document.querySelector("[data-lengthslider]");
 const lengthDisplay=document.querySelector("[data-lengthNumber]");
 const passwordDisplay=document.querySelector("[data-passwordDisplay]");
 const copyMsg=document.querySelector("[data-copyMsg]");
-const copyBtn=document.querySelector("[data-copyMsg]");
+const copyBtn=document.querySelector("[data-copy]");
 const uppercasecheck=document.querySelector("#uppercase");
 const lowercheck=document.querySelector("#lowercase");
 const numbercheck=document.querySelector("#numbers");
@@ -10,7 +10,7 @@ const symbolcheck=document.querySelector("#symbols");
 const indicator=document.querySelector("[data-indicator]");
 const generatebutton=document.querySelector(".generateButton");
 const allcheckbox=document.querySelectorAll("input[type=checkbox]");
-const symbols='!@#$%^&*()_{}/?.><,`~]['
+const symbols='~`!@#$%^&*()_-+={[}]|:;"<,>.?/';
 
 let password="";
 let password_length=10;
@@ -32,7 +32,7 @@ function setIndicator(color){
 }
 // finds a random number between min and max range
 function getRandomInteger(min, max){
- return Math.floor(Math.random()*(max-min)+min);   
+ return Math.floor(Math.random()*(max-min))+min;   
 }
 function generateRandomNumber(){
     return getRandomInteger(0,9);
@@ -44,7 +44,7 @@ function generateUpperCase(){
     return String.fromCharCode(getRandomInteger(65,91));
 }
 function generateSymbol(){
-    const size=getRandomInteger(0,symbols.length());
+    const size=getRandomInteger(0,symbols.length);
 
     return symbols.charAt(size);
 }
@@ -168,17 +168,20 @@ if(numbercheck.checked){
 if(symbolcheck.checked){
     funcArr.push(generateSymbol);
 }
+
 //Compulsary Addition
 for(let i=0;i<funcArr.length;i++){
-    password+=funcArr[i]();
+    password += funcArr[i]();
 }
+
 //remaining addition
-for(let i=0;i<password_length-funcArr.lengt;i++){
+for(let i=0;i<password_length-funcArr.length;i++){
     let ranIndex=getRandomInteger(0,funcArr.length);
     password+=funcArr[ranIndex]();
 }
 //Shuffle the password
 password=shufflePassword(Array.from(password));
+
 //Show the password
 passwordDisplay.value=password
 //calculation strength
